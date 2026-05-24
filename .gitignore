@@ -1,0 +1,39 @@
+# IDE / tooling
+.claude/
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.docstates
+
+# Build artefacts
+build/
+out/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+
+# Compiled binaries / object files
+*.exe
+*.out
+*.app
+*.o
+*.obj
+*.exp
+*.lib
+*.pdb
+*.ilk
+*.dll
+*.so
+*.dylib
+
+# Misc
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
