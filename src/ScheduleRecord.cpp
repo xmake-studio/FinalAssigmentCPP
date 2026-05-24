@@ -31,6 +31,7 @@ std::string ScheduleRecord::toCsv() const {
 bool ScheduleRecord::fromCsv(const std::string& line, ScheduleRecord& out) {
     if (line.empty()) return false;
 
+    // разделитель ';' выбран чтобы не конфликтовать с запятыми в русских строках
     std::array<std::string, 6> fields;
     std::size_t fieldIdx = 0;
     std::string current;
@@ -40,6 +41,7 @@ bool ScheduleRecord::fromCsv(const std::string& line, ScheduleRecord& out) {
             fields[fieldIdx++] = current;
             current.clear();
         } else if (c != '\r') {
+            // \r игнорируем чтобы корректно читать файлы с crlf
             current.push_back(c);
         }
     }

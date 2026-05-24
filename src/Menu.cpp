@@ -30,6 +30,7 @@ bool Menu::readInt(const char* prompt, int& out, int minV, int maxV) {
         std::cout << prompt;
         std::string s;
         if (!std::getline(std::cin, s)) return false;
+        // eof() гарантирует что после числа нет мусора типа "5abc"
         std::istringstream iss(s);
         int v;
         if ((iss >> v) && iss.eof() && v >= minV && v <= maxV) {
@@ -48,6 +49,7 @@ bool Menu::readLine(const char* prompt, std::string& out) {
 }
 
 void Menu::run() {
+    // пробуем подхватить файл по умолчанию, отсутствие не критично
     try {
         std::size_t n = db_.loadFromFile(defaultPath_);
         std::cout << "Загружено записей из '" << defaultPath_ << "': " << n << '\n';

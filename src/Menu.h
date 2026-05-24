@@ -2,6 +2,7 @@
 
 #include "ScheduleDB.h"
 
+// консольная оболочка над ScheduleDB
 class Menu {
 public:
     explicit Menu(ScheduleDB& db, std::string defaultPath);

@@ -2,8 +2,10 @@
 
 #include <string>
 
+// одна запись расписания: занятие группы в конкретный день и пару
 class ScheduleRecord {
 public:
+    // допустимые диапазоны для дня и пары
     static constexpr unsigned char kMinDay = 1;
     static constexpr unsigned char kMaxDay = 7;
     static constexpr unsigned char kMinPair = 1;

@@ -11,6 +11,8 @@
 
 namespace {
 
+// std::setw считает байты, а кириллица в utf-8 это 2 байта на символ,
+// поэтому таблица съезжает. считаем длину в символах руками
 std::size_t utf8VisibleLen(const std::string& s) {
     std::size_t count = 0;
     for (std::size_t i = 0; i < s.size(); ) {
@@ -86,6 +88,7 @@ std::size_t ScheduleDB::loadFromFile(const std::string& path) {
     while (std::getline(in, line)) {
         ++lineNum;
         if (line.empty()) continue;
+        // первая строка может быть заголовком "id;group;..." - пропускаем её
         if (lineNum == 1 && !std::isdigit(static_cast<unsigned char>(line[0]))) {
             continue;
         }
@@ -161,6 +164,7 @@ void ScheduleDB::sortById() {
 
 const ScheduleRecord* ScheduleDB::findById(int id) {
     if (records_.empty()) return nullptr;
+    // бинарный поиск работает только по отсортированным данным
     if (!sortedById_) sortById();
 
     ScheduleRecord key;
@@ -191,6 +195,7 @@ int ScheduleDB::nextId() const {
 }
 
 std::size_t ScheduleDB::reportConflicts() const {
+    // ключ слота: либо (группа,день,пара), либо (препод,день,пара)
     using Slot = std::tuple<std::string, unsigned char, unsigned char>;
 
     std::map<Slot, std::vector<std::string>> byGroup;
@@ -239,6 +244,7 @@ std::size_t ScheduleDB::reportConflicts() const {
 }
 
 void ScheduleDB::printGroupSchedule(const std::string& group) const {
+    // map даёт автоматическую сортировку по дню недели
     std::map<unsigned char, std::vector<const ScheduleRecord*>> byDay;
     for (const auto& r : records_) {
         if (r.group() == group) byDay[r.dayOfWeek()].push_back(&r);

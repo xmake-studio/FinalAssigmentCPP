@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+// бд расписания: хранит вектор записей и операции над ним
 class ScheduleDB {
 public:
     std::size_t loadFromFile(const std::string& path);
@@ -16,6 +17,7 @@ public:
     bool removeById(int id);
 
     void sortById();
+    // не const: при необходимости сначала сортирует, потом ищет бинарно
     const ScheduleRecord* findById(int id);
 
     std::vector<ScheduleRecord> selectByDayRange(unsigned char dayFrom,

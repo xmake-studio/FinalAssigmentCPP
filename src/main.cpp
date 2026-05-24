@@ -11,10 +11,12 @@
 
 int main(int argc, char** argv) {
 #ifdef _WIN32
+    // иначе кириллица в консоли превратится в кашу
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 #endif
 
+    // путь к бд: из аргумента, иначе дефолтный
     std::string dataPath = (argc > 1) ? argv[1] : "data/schedule.csv";
 
     std::cout << "База данных: Расписание (вариант 12)\n";
